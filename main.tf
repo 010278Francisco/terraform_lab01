@@ -19,6 +19,6 @@ resource "docker_container" "nginx" {
   name  = "theironhidex"
   ports {
     internal = 80
-    external = 8000
+    external = 83
   }
 }
