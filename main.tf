@@ -19,6 +19,6 @@ resource "docker_container" "nginx" {
   name  = "francisco012"
   ports {
     internal = 80
-    external = 83
+    external = 85
   }
 }
