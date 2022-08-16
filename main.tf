@@ -8,7 +8,7 @@ terraform {
 }
 
 variable "reponame" {}
-variable "container" {}
+variable "container_port" {}
 
 
 provider "docker" {}
@@ -23,6 +23,6 @@ resource "docker_container" "nginx" {
   name  = var.reponame 
   ports {
     internal = 80
-    external = var.container
+    external = var.container_port
   }
 }
