@@ -7,6 +7,10 @@ terraform {
   }
 }
 
+variable "reponame_terraform" {}
+variable "container_port_terraform" {}
+
+
 provider "docker" {}
 
 resource "docker_image" "nginx" {
@@ -16,9 +20,9 @@ resource "docker_image" "nginx" {
 
 resource "docker_container" "nginx" {
   image = docker_image.nginx.latest
-  name  = "francisco"
+  name  = var.reponame_terraform 
   ports {
     internal = 80
-    external = 83
+    external = var.container_port_terraform
   }
 }
