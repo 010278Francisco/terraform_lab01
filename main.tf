@@ -20,9 +20,9 @@ resource "docker_image" "nginx" {
 
 resource "docker_container" "nginx" {
   image = docker_image.nginx.latest
-  name  = var.reponame 
+  name  = var.reponame #Se manda llamar las variable nombre directo de nuestro jenkingsPipeline
   ports {
     internal = 80
-    external = var.container_port
+    external = var.container_port  #Se manda llamar las variable del puerto directo de nuestro jenkingsPipeline
   }
 }
