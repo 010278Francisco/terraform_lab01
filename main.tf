@@ -1,4 +1,3 @@
-
 terraform {
   required_providers {
     docker = {
@@ -7,6 +6,7 @@ terraform {
     }
   }
 }
+
 
 variable "reponame" {}
 variable "container_port" {}
