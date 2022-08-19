@@ -41,9 +41,9 @@ resource "docker_container" "nginx" {
 
 #//////////////////////////////////////////////////////////
 provider "aws" {
-  region  = "${var.aws_region}"
-  access_key = "${var.acces_key}"
-  secret_key = "${var.secret_key}" 
+  region  = var.aws_region
+  access_key = var.acces_key
+  secret_key = var.secret_key
 }
 
 
