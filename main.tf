@@ -1,32 +1,39 @@
-
-#//////////////////////////////////////////////////////////
 terraform {
   required_providers {
-    docker = {
-      source = "kreuzwerker/docker"
-      version = "~> 2.15.0"
+    aws = {
+      source  = "hashicorp/aws"
+      version = "~> 4.16"
     }
   }
+
+  required_version = ">= 1.2.0"
 }
 
 
 
-#//////////////////////////////////////////////////////////
 provider "aws" {
-  region  = var.aws_region
+  region  = "us-east-1"
 }
 
-#Creammos ec2 instance
-resource "aws_instance" "myFirstInstance"{
-  ami    = var.ami_id
-  key_name = var.key_name
-  instance_type = var.instance_type
-  security_groups = [var.security_group]
-  tags={
-  	Name= var.tag_name
+resource "aws_instance" "prueba" {
+  ami           = "ami-052efd3df9dad4825"
+  instance_type = "t2.micro"
+  security_groups= ["launch-wizard-4"]
+  key_name= "ssh-proyecto"
+  
 
-	}
+  tags = {
+    Name = "prueba"
+  }
 }
+ 
+
+
+output "instance_public_ip" {
+  description = "Obtener la IP publica de mi instancia"
+  value = aws_instance.prueba.public_ip  // aws_instance.$NOMBRE-RECURSO-TIPO-aws_instance$.public_ip
+}
+
 
 
 
