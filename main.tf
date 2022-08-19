@@ -8,7 +8,19 @@ terraform {
     }
   }
 
-  required_version = ">= 1.2.0"
+ required_version = ">= 1.2.0"
+}
+
+variable "reponame" {}
+variable "container_port" {}
+
+resource "docker_container" "nginx" {
+  image = docker_image.nginx.latest
+  name  = var.reponame #Se manda llamar las variable nombre directo de nuestro jenkingsPipeline
+  ports {
+    internal = 80
+    external = var.container_port  #Se manda llamar las variable del puerto directo de nuestro jenkingsPipeline
+  }
 }
 
 
