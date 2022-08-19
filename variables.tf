@@ -1,8 +1,19 @@
 
+
+variable "acces_key"{
+  default     = "AKIAQ2C4ISCQXKQ42HHW"
+}
+
+
+variable "secret_key"{
+  default     = "xwTQXa7kaaq5n5/zGdMjZNUt2NcJ7X/PbR1E6n25"
+}
+
 variable "aws_region"{
   description = " The AWS region to create things"
   default     = "us-east-1"
 }
+
 
 variable "key_name"{
   description = "SSH keys to connect to ec2 instance"
