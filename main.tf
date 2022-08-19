@@ -11,8 +11,10 @@ terraform {
  required_version = ">= 1.2.0"
 }
 
+
 variable "reponame" {}
 variable "container_port" {}
+provider "docker" {}
 
 resource "docker_container" "nginx" {
   image = docker_image.nginx.latest
