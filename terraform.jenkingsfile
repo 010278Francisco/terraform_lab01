@@ -32,7 +32,7 @@ pipeline {
         }
         stage('terraform apply') {
             steps{
-                sh "terraform apply -var=\"container_port=${CONTAINER_PORT}\" -var=\"reponame=${env.DOCKER_REPO}\" --auto-approve"
+                sh "terraform apply --auto-approve"
             }
         }
         stage('Manual Approval to Destroy the Infra') {
@@ -42,7 +42,7 @@ pipeline {
         }
         stage('Executing Terraform Destroy') {
             steps{
-                sh "terraform destroy -var=\"container_port=${CONTAINER_PORT}\" -var=\"reponame=${env.DOCKER_REPO}\" --auto-approve"
+                sh "terraform destroy --auto-approve"
             }
         }
     }
