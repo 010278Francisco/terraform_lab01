@@ -11,14 +11,14 @@ terraform {
   required_version = ">= 1.2.0"
 }
 
-terraform {
-  required_providers {
-    docker = {
-      source = "kreuzwerker/docker"
-      version = "~> 2.15.0"
-    }
-  }
-}
+#terraform {
+#  required_providers {
+    #docker = {
+    #  source = "kreuzwerker/docker"
+   #   version = "~> 2.15.0"
+  #  }
+ # }
+#}
 
 
 
@@ -26,7 +26,7 @@ variable "reponame" {}
 variable "container_port" {}
 
 
-provider "docker" {}
+#provider "docker" {}
 
 
 resource "docker_image" "nginx" {
