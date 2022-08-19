@@ -22,7 +22,7 @@ variable "key_name"{
 
 variable "instance_type"{
   description = "instance type for ec2"
-  default     = "t2.micro01"
+  default     = "t2.micro"
 }
 
 variable "security_group"{
