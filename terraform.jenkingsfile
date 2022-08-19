@@ -19,25 +19,34 @@ pipeline {
             }
         }
         
-
+        stage ("Verify If exist container") {
+            steps {
+                    script {
+                        DOCKERID = sh (script: "docker ps -f publish=${CONTAINER_PORT} -q", returnStdout: true).trim()
+                        if  ( DOCKERID !="" ) {
+                            if (fileExists('terraform.tfstate')) {
+                                sh "terraform destroy  -var=\"container_port=${CONTAINER_PORT}\" -var=\"reponame=${env.DOCKER_REPO}\" --target docker_container.nginx --auto-approve"
+                            }
+                            else {
+                                sh "docker stop ${DOCKERID}"
+                            }
+                        }
+                }
+            }
+        }
         stage('terraform format check') {
             steps{
                 sh 'terraform fmt'
             }
         }
-        
         stage('terraform Init') {
             steps{
-                sh '''
-                export AWS_ACCESS_KEY_ID=AKIAQ2C4ISCQXKQ42HHW
-                export AWS_SECRET_ACCESS_KEY=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 
-                terraform init
-                '''
+                sh 'terraform init'
             }
         }
         stage('terraform apply') {
             steps{
-                sh "terraform apply --auto-approve"
+                sh "terraform apply -var=\"container_port=${CONTAINER_PORT}\" -var=\"reponame=${env.DOCKER_REPO}\" --auto-approve"
             }
         }
         stage('Manual Approval to Destroy the Infra') {
@@ -47,10 +56,8 @@ pipeline {
         }
         stage('Executing Terraform Destroy') {
             steps{
-                sh "terraform destroy --auto-approve"
+                sh "terraform destroy -var=\"container_port=${CONTAINER_PORT}\" -var=\"reponame=${env.DOCKER_REPO}\" --target docker_container.nginx --auto-approve"
             }
         }
     }
-
-    
 }
