@@ -29,28 +29,68 @@ resource "docker_container" "nginx" {
   }
 }
 
-terraform {
-  required_providers {
-    aws = {
-      source  = "hashicorp/aws"
-      version = "~> 4.16"
-    }
-  }
-
-  required_version = ">= 1.2.0"
-}
-
 provider "aws" {
-  region  = "us-west-2"
+  region  = var.aws_region
 }
 
-resource "aws_instance" "app_server" {
-  ami           = "ami-830c94e3"
-  instance_type = "t2.micro"
 
-  tags = {
-    Name = "server"
-  }
+#Se crea el grupo de seguridad y la reglas
+resource "aws_security_group" "my_security_group"{
+	name = var.security_group
+	description = "security group for ec2 instance"
+
+	ingress{
+		from_port   = 8000
+		to_port     = 8000
+		protocol    = "tcp"
+		cidr_blocks = ["0.0.0.0/0"]
+
+	}
+	ingress{
+		from_port   = 22
+		to_port     = 22
+		protocol    = "tcp"
+		cidr_blocks = ["0.0.0.0/0"]
+
+	}
+	egress{
+		from_port   = 0
+		to_port     = 65535
+		protocol    = "tcp"
+		cidr_blocks = ["0.0.0.0/0"]
+
+	}
+
+	tags ={
+	 Name = var.security_group 
+
+	}
 }
+
+#Creammos ec2 instance
+resource "aws_instance" "myFirstInstance"{
+  ami    = var.ami_id
+  key_name = var.key_name
+  instance_type = var.instance_type
+  security_groups = [var.security_group]
+  tags={
+  	Name= var.tag_name
+
+	}
+}
+
+
+#Craamos la ip elastic{
+resource "aws_eip" "myFirstInstance" 
+  vpc  = true
+  instance = aws_instance.myFirstInstance.id
+  tags={
+	Name = "my_elastic_ip"
+
+	}
+
+}
+
+
 
 
