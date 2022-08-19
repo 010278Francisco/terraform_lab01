@@ -27,7 +27,7 @@ pipeline {
         }
         stage('terraform Init') {
             steps{
-                sh 'terraform init'
+                sh 'AWS_ACCESS_KEY_ID=AKIAQ2C4ISCQXKQ42HHW AWS_SECRET_ACCESS_KEY=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 terraform init'
             }
         }
         stage('terraform apply') {
