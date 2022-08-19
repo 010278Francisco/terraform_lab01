@@ -6,7 +6,7 @@ default     = "us-east-2"
 
 variable "key_name"{
   description = "SSH keys to connect to ec2 instance"
-  default     = "ssh-v1"
+  default     = "ssh_key"
 }
 
 variable "instance_type"{
