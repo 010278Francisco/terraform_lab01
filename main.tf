@@ -1,20 +1,26 @@
 #//////////////////////////////////////////////////////////
-
 terraform {
   required_providers {
-    aws = {
-      source  = "hashicorp/aws"
-      version = "~> 4.16"
+    docker = {
+      source = "kreuzwerker/docker"
+      version = "~> 2.15.0"
     }
   }
-
- required_version = ">= 1.2.0"
 }
+
 
 
 variable "reponame" {}
 variable "container_port" {}
+
+
 provider "docker" {}
+
+
+resource "docker_image" "nginx" {
+  name         = "nginx:latest"
+  keep_locally = true
+}
 
 resource "docker_container" "nginx" {
   image = docker_image.nginx.latest
@@ -24,6 +30,8 @@ resource "docker_container" "nginx" {
     external = var.container_port  #Se manda llamar las variable del puerto directo de nuestro jenkingsPipeline
   }
 }
+
+
 
 
 
