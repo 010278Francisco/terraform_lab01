@@ -80,8 +80,8 @@ resource "aws_instance" "myFirstInstance"{
 }
 
 
-#Craamos la ip elastic{
-resource "aws_eip" "myFirstInstance" 
+#Craamos la ip elastic
+resource "aws_eip" "myFirstInstance"{
   vpc  = true
   instance = aws_instance.myFirstInstance.id
   tags={
