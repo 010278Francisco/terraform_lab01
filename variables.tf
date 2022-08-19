@@ -11,7 +11,7 @@ variable "secret_key"{
 
 variable "aws_region"{
   description = " The AWS region to create things"
-  default     = "us-west-2"
+  default     = "us-west-1"
 }
 
 
