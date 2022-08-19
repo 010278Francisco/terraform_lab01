@@ -14,8 +14,6 @@ terraform {
 #//////////////////////////////////////////////////////////
 provider "aws" {
   region  = var.aws_region
-  access_key = var.acces_key
-  secret_key = var.secret_key
 }
 
 #Creammos ec2 instance
