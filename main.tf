@@ -12,7 +12,7 @@ variable "reponame" {}
 variable "container_port" {}
 
 
-provider "docker" {}
+#provider "docker" {}
 
 
 resource "docker_image" "nginx" {
